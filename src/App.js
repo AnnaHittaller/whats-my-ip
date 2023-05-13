@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react'
 import { countries } from "country-data";
-import { MapContainer, TileLayer } from "react-leaflet";
-import axios from 'axios'
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { Icon } from 'leaflet';
 import "leaflet/dist/leaflet.css";
+import mapMarker from './assets/markerIcon.png'
+import axios from 'axios'
 import './App.css';
+
+//note: icon color is #008eff
 
 function App() {
 
@@ -15,6 +19,12 @@ function App() {
   const [location, setLocation] = useState({
     lat: "",
     lng: ""
+  })
+
+  const customIcon = new Icon({
+    iconUrl: require('./assets/markerIcon.png'),
+    iconSize: [38, 58],
+    popupAnchor: [0, -25]
   })
 
   //a variable for the zoom level of the map
@@ -29,7 +39,7 @@ function App() {
       setIpAddress(data.ip)
       setCountry(data.location.country)
       setCity(data.location.city)
-      setLocation({lat: data.location.lat, lng: data.location.lng})
+      //setLocation({lat: data.location.lat, lng: data.location.lng})
 
     }
     fetchIpAddress();
@@ -42,7 +52,7 @@ function App() {
 				);
 				console.log("new ipdata API response", response.data);
 				//I haven't set the map's location to the data coming from the second API yet
-				//setLocation({ lat: response.data.latitude, lng: response.data.longitude });
+				setLocation({ lat: response.data.latitude, lng: response.data.longitude });
 			} catch (error) {
         console.error(error);
       }
@@ -57,7 +67,7 @@ function App() {
   return (
 		<div className="App">
 			{/* FLAG HERE */}
-			<p>Your IP address is: {ipAddress}</p>
+			<p className="ip">Your IP address is: {ipAddress}</p>
 			<p>Your city is: {city}</p>
 			<p>Your country is: {countries[country].name}</p>
 			<p>Currencies: {countries[country].currencies}</p>
@@ -68,8 +78,8 @@ function App() {
 			{/* <p>DATE HERE</p> */}
 			{/* <p>LOCAL TIME HERE</p> */}
 			<MapContainer
-      // the key in needed to automatically fly the map to the location, because without it it doesn't rerender and just shows the middle of the ocean
-      // as the key contains the location variables, it makes the map rerender every time when the location changes
+				// the key in needed to automatically fly the map to the location, because without it it doesn't rerender and just shows the middle of the ocean
+				// as the key contains the location variables, it makes the map rerender every time when the location changes
 				key={`${location.lat}-${location.lng}`}
 				center={[location.lat, location.lng]}
 				zoom={ZOOM_LEVEL}>
@@ -77,6 +87,14 @@ function App() {
 					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 				/>
+				{location ? (
+					<Marker position={[location.lat, location.lng]} icon={customIcon}>
+						<Popup>
+							<h3>IP Address: {ipAddress}</h3>
+							<p>Location: this has to come from your code :)</p>
+						</Popup>
+					</Marker>
+				) : null}
 			</MapContainer>
 		</div>
 	);
