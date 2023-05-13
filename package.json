@@ -9,6 +9,7 @@
     "axios": "^1.4.0",
     "country-data": "^0.0.31",
     "leaflet": "^1.9.3",
+    "luxon": "^3.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
