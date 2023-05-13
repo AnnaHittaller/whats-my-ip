@@ -2,3 +2,8 @@
   text-align: center;
 }
 
+.leaflet-container {
+  width: 80%;
+  height: 500px;
+  margin: 0 auto;
+}
