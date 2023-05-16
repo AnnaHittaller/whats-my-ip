@@ -46,17 +46,17 @@ function App() {
 
 	useEffect(() => {
 		// async function fetchIpAddress() {
-			
+
 		// 	const response = await fetch(
 		// 		`https://geo.ipify.org/api/v2/country,city?apiKey=${process.env.REACT_APP_IPIFY_API_KEY}&ipAddress`
 		// 	);
 		// 	const data = await response.json();
-		
+
 		// 		console.log("IPIFY",data)
 		// 		setIpAddress(data.ip);
 		// 		setCountry(data.location.country);
 
-			
+
 		// }
 
 		//fetchIpAddress();
@@ -70,7 +70,7 @@ function App() {
 				console.log("id from bew api", responseIp.data)
 				setIpAddress(responseIp.data.ip);
 				setCountry(responseIp.data.country_name)
-				setCallingCode(responseIp.data.asn.calling_code)
+				setCallingCode(responseIp.data.calling_code)
 				setCurrency(responseIp.data.currency)
 
 				// const response = await axios.get(
@@ -91,10 +91,10 @@ function App() {
 				console.error(error);
 			}
 		}
-		
-		 
-				getIpAddress();
-			
+
+
+		getIpAddress();
+
 
 		// const interval = setInterval(() => {
 		// 	setCurrentTime(new Date());
@@ -130,12 +130,12 @@ function App() {
 						<Popup>
 							<div className="popup-line">
 								<span>National flag:</span>
-								<img src={flag} alt="flag"/>
+								<img src={flag} alt="flag" />
 							</div>
 							<div className="popup-line">
 								<FaPhoneAlt className="icon" />
-								<span>International country calling code:</span>
-								<span>{callingCode}</span>
+								<span>Int. country calling code:</span>
+								<span>+{callingCode}</span>
 							</div>
 							<div className="popup-line">
 								<FaMoneyBillAlt className="icon" />
@@ -151,13 +151,13 @@ function App() {
 				<p className="ip">Your IP address is: {ipAddress}</p>
 				<div>
 					<GoGlobe className="icon" />
-					<span>You are located in</span> <span className="bold">{city}</span>
+					<span>You are located in</span><span className="bold">{city}</span>
 					<span>, {country}</span>
 				</div>
 
 				<p>
 					<FaRegCalendar className="icon" />
-					Today is the {currentDate}
+					Today is {currentDate}
 				</p>
 
 				<p>
