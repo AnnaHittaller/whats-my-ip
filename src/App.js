@@ -67,7 +67,7 @@ function App() {
 				const responseIp = await axios.get(
 					`https://api.ipdata.co?api-key=${process.env.REACT_APP_IPDATA_API_KEY}`
 				);
-				console.log("id from bew api", responseIp.data)
+				console.log("ip from new api", responseIp.data)
 				setIpAddress(responseIp.data.ip);
 				setCountry(responseIp.data.country_name)
 				setCallingCode(responseIp.data.calling_code)
