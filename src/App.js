@@ -15,14 +15,13 @@ import {
 
 const { DateTime } = require("luxon");
 
-
 function App() {
 	const [ipAddress, setIpAddress] = useState("");
 	const [country, setCountry] = useState("");
 	const [city, setCity] = useState("");
 	const [flag, setFlag] = useState("");
-	const [callingCode, setCallingCode] = useState("")
-	const [currency, setCurrency] = useState("")
+	const [callingCode, setCallingCode] = useState("");
+	const [currency, setCurrency] = useState("");
 	const [currentTime, setCurrentTime] = useState(new Date());
 	const currentDate = DateTime.now().toLocaleString(DateTime.DATE_MED);
 
@@ -41,8 +40,7 @@ function App() {
 		popupAnchor: [0, -25],
 	});
 
-
-	console.log('rerender')
+	console.log("rerender");
 
 	useEffect(() => {
 		// async function fetchIpAddress() {
@@ -56,7 +54,6 @@ function App() {
 		// 		setIpAddress(data.ip);
 		// 		setCountry(data.location.country);
 
-
 		// }
 
 		//fetchIpAddress();
@@ -67,11 +64,11 @@ function App() {
 				const responseIp = await axios.get(
 					`https://api.ipdata.co?api-key=${process.env.REACT_APP_IPDATA_API_KEY}`
 				);
-				console.log("ip from new api", responseIp.data)
+				console.log("ip from new api", responseIp.data);
 				setIpAddress(responseIp.data.ip);
-				setCountry(responseIp.data.country_name)
-				setCallingCode(responseIp.data.calling_code)
-				setCurrency(responseIp.data.currency)
+				setCountry(responseIp.data.country_name);
+				setCallingCode(responseIp.data.calling_code);
+				setCurrency(responseIp.data.currency);
 
 				// const response = await axios.get(
 				// 	`https://api.ipdata.co/${ipAddress}?api-key=${process.env.REACT_APP_IPDATA_API_KEY}&fields=ip,is_eu,city,region,region_code,country_name,country_code,continent_name,continent_code,latitude,longitude,postal,calling_code,flag,emoji_flag,emoji_unicode`
@@ -84,17 +81,12 @@ function App() {
 				});
 				setFlag(responseIp.data.flag);
 				setCity(responseIp.data.city);
-
-
-
 			} catch (error) {
 				console.error(error);
 			}
 		}
 
-
 		getIpAddress();
-
 
 		// const interval = setInterval(() => {
 		// 	setCurrentTime(new Date());
@@ -102,8 +94,7 @@ function App() {
 		// return () => clearInterval(interval);
 	}, []);
 
-
-	console.log(country)
+	console.log(country);
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -140,7 +131,9 @@ function App() {
 							<div className="popup-line">
 								<FaMoneyBillAlt className="icon" />
 								<span>Currencies:</span>
-								<span>{currency.name} - {currency.symbol}</span>
+								<span>
+									{currency.name} - {currency.symbol}
+								</span>
 							</div>
 						</Popup>
 					</Marker>
@@ -151,8 +144,12 @@ function App() {
 				<p className="ip">Your IP address is: {ipAddress}</p>
 				<div>
 					<GoGlobe className="icon" />
-					<span>You are located in</span><span className="bold">{city}</span>
-					<span>, {country}</span>
+					<span>You are located in</span>
+					<span>
+						<span className="bold">{city}</span>
+						<span>, </span>
+					</span>
+					<span>{country}</span>
 				</div>
 
 				<p>
